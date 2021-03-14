@@ -1,40 +1,47 @@
 {
   "users": {
     "_model": "User",
-    "homer": {
-      "firstName": "Jim",
-      "lastName": "Hurley",
-      "email": "jh@gmail.com",
-      "password": "1234"
+    "john": {
+      "firstName": "John",
+      "lastName": "Turley",
+      "email": "jt@gmail.com",
+      "password": "secret"
     },
-    "marge": {
+    "frank": {
       "firstName": "Frank",
-      "lastName": "Mahony",
-      "email": "fm@gmail.com",
-      "password": "1234"
+      "lastName": "Stevens",
+      "email": "ft@gmail.com",
+      "password": "secret"
     },
-    "bart": {
-      "firstName": "Matt",
-      "lastName": "Conlon",
-      "email": "mc@gmail.com",
-      "password": "1234"
+    "mark": {
+      "firstName": "Mark",
+      "lastName": "Glesson",
+      "email": "mg@gmail.com",
+      "password": "secret"
     }
   },
   "contributions": {
     "_model": "Contribution",
     "one": {
-      "name": "Blackrock Castle",
-      "type": "place",
-      "description": "Observatory",
-      "location": "Cork",
+      "name": "Robert Boyle",
+      "type": "person",
+      "description": "Boyle is considered first modern chemist.",
+      "location": "Munster",
       "contributor": "->users.frank"
     },
     "two": {
-      "name": "Dark Sky",
-      "type": "place",
-      "description": "National park for sky gazing",
-      "location": "Kerry",
-      "contributor": "->users.matt"
+      "name": "Ernest Walton",
+      "type": "person",
+      "description": "Walton received the Novel Prize for splitting the atom.",
+      "location": "Munster",
+      "contributor": "->users.mark"
+    },
+    "three": {
+      "name": "Francis Beaufort",
+      "type": "person",
+      "description": "Beaufort invented the Beaufort scale to measure wind conditions.",
+      "location": "Munster",
+      "contributor": "->users.john"
     }
   }
 }
