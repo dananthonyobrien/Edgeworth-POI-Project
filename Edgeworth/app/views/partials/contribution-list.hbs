@@ -1,40 +1,27 @@
-<div class="uk-margin uk-width-2xlarge uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
+<div class=" uk-width-2xlarge uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow">
+  <header class="uk-heading-small">Map of Irish Science</header>
   <table class="uk-table">
-    <caption>
-      Ireland's Scientists and Places of Scientific Interest
-    </caption>
     <thead>
       <th>Name</th>
       <th>Type</th>
       <th>Description</th>
       <th>Location</th>
-      <!---<th>Image</th>--->
+      <th>Contributor</th>
     </thead>
     <tbody class="uk-text-left">
-      {{#each contribution}}
+      {{#each contributions}}
         <tr>
-          <td>{{name}}</td>
+          <!-- Added extra pair of curly brackets for cross-site scripting test-->
+          <td>{{{name}}}</td>
           <td>{{type}}</td>
           <td>{{description}}</td>
           <td>{{location}}</td>
-          <!---<td>{{image}}</td>--->
-          <td> {{user.firstName}} {{user.lastName}} </td>
-         <!--- <td>{{candidate.lastName}}, {{candidate.firstName}}</td> --->
+          <td>{{contributor.firstName}} {{contributor.lastName}}</td>
         </tr>
       {{/each}}
     </tbody>
   </table>
+  <a href="/home">Add Scientist or Location
+    <i class="fas fa-vial fa-3x" style="color:rgb(153, 196, 74)" title="Contribute" pos="bottom" uk-tooltip></i>
+  </a>
 </div>
-
-
-
- <!---<tbody class="uk-text-left">
-      {{#each donations}}
-        <tr>
-          <td>{{name}}</td>
-          <td>{{type}}</td>
-          <td> {{donor.firstName}} {{donor.lastName}} </td>
-          <td>{{candidate.lastName}}, {{candidate.firstName}}</td>
-        </tr>
-      {{/each}}
-    </tbody> --->
