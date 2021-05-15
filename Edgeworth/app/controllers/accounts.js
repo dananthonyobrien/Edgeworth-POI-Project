@@ -2,6 +2,10 @@
 const User = require("../models/user");
 const Boom = require("@hapi/boom");
 const Joi = require("@hapi/joi");
+const bcrypt = require("bcrypt");    // Added bcrypt for password hashing
+const disinfect = require ("disinfect");  //Added disinfect to sanitise user input   
+var sanitizeHtml = require('sanitize-html'); //Added sanitizeHtml to sanitize user input
+const saltRounds = 10;                     
 
 const Accounts = {
   index: {
@@ -20,16 +24,17 @@ const Accounts = {
     auth: false,
     validate: {
       payload: {
-        firstName: Joi.string().required(),
-        lastName: Joi.string().required(),
-        email: Joi.string().email().required(),
-        password: Joi.string().required(),
+        firstName: Joi.string().required('disinfect'),
+        lastName: Joi.string().required('disinfect'),
+        email: Joi.string().email().required('disinfect'),
+        password: Joi.string().required().alphanum().min(10).max(20),
       },
       options: {
         abortEarly: false,
       },
       failAction: function (request, h, error) {
-        return h.view("signup", {
+        return h
+          .view("signup", {
             title: "Sign up error",
             errors: error.details,
           })
@@ -45,12 +50,16 @@ const Accounts = {
           const message = "Email address is already registered";
           throw Boom.badData(message);
         }
+
+        const hash = await bcrypt.hash(payload.password, saltRounds);
+
         const newUser = new User({
-          firstName: payload.firstName,
-          lastName: payload.lastName,
-          email: payload.email,
-          password: payload.password,
+          firstName: sanitizeHtml(payload.firstName), // sanitize user input
+          lastName: sanitizeHtml(payload.lastName),   // sanitize user input
+          email: sanitizeHtml(payload.email),         // sanitize user input
+          password: hash
         });
+        
         user = await newUser.save();
         request.cookieAuth.set({ id: user.id });
         return h.redirect("/home");
@@ -70,7 +79,7 @@ const Accounts = {
     validate: {
       payload: {
         email: Joi.string().email().required(),
-        password: Joi.string().required(),
+        password: Joi.string().required().alphanum().min(10).max(20),
       },
       options: {
         abortEarly: false,
@@ -93,7 +102,7 @@ const Accounts = {
           const message = "Email address is not registered";
           throw Boom.unauthorized(message);
         }
-        user.comparePassword(password);
+        await user.comparePassword(password);
         request.cookieAuth.set({ id: user.id });
         return h.redirect("/home");
       } catch (err) {
@@ -112,7 +121,7 @@ const Accounts = {
       try {
         const id = request.auth.credentials.id;
         const user = await User.findById(id).lean();
-        return h.view("settings", { title: "Contributions Settings", user: user });
+        return h.view("settings", { title: "Contribution Settings", user: user });
       } catch (err) {
         return h.view("login", { errors: [{ message: err.message }] });
       }
@@ -147,7 +156,7 @@ const Accounts = {
         user.firstName = userEdit.firstName;
         user.lastName = userEdit.lastName;
         user.email = userEdit.email;
-        user.password = userEdit.password;
+        user.password = userEdit.password; //user.password = hash;
         await user.save();
         return h.redirect("/settings");
       } catch (err) {

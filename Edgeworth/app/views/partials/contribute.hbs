@@ -1,53 +1,44 @@
-<div class="uk-margin uk-width-1xlarge uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
-  <form class="uk-form-stacked uk-text-left" action="/submit" method="POST">
-    <legend class="uk-legend">Contribute an Irish Scientist or Inventor</legend>
-    <legend class="uk-legend">or Place of Scientific Interest</legend>
-    <div class="uk-grid uk-grid-stack">
-      <div class="uk-width-1-2@m">
+<!---<div class="uk-margin uk-width-2xlarge uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
+   <legend class="uk-legend">Welcome: {{user.firstName}} {{user.lastName}}</legend> 
+</div>--->
+<div>
+  <form class="uk-form-stacked" action="/contribute" method="POST">
+      <div>
+        <legend class="uk-legend">Contribute an Irish Scientist or Place of Scientific Interest</legend>
         <div class="uk-margin">
           <label class="uk-form-label" for="form-stacked-text">Name</label>
           <div class="uk-form-controls">
-            <input class="uk-input" id="form-stacked-text" type="string" name="name" placeholder="Birr Castle">
-          </div>
-          <div class="uk-form-label">Type</div>
-          <div class="uk-form-controls">
-            <label><input class="uk-radio" type="radio" name="method" value="person"> Person </label><br> 
-            <label><input class="uk-radio" type="radio" name="method" value="place"> Place </label>
-          </div>
-          <label class="uk-form-label" for="form-stacked-text">Description</label>
-          <div class="uk-form-controls">
-            <input class="uk-input" id="form-stacked-text" type="string" name="description" placeholder="Home of largest telescope of 1800s">
-          </div>
-          <label class="uk-form-label" for="form-stacked-text">Location</label>
-          <div class="uk-form-controls">
-            <label class="uk-form-label" for="form-stacked-select">Select</label>
-        <div class="uk-form-controls">
-            <select class="uk-select" id="form-stacked-select" placeholder= "Province">
-                <option>Choose Province</option>
-                <option>Munster</option>
-                <option>Connaught</option>
-                <option>Ulster</option>
-                <option>Leinster</option>
-            </select>
-          </div>
-          <!---  <label class="uk-form-label" for="form-stacked-text">Image</label>
-          <div class="uk-form-controls">
-          <input class="uk-input" id="form-stacked-text" type="image" name="image" placeholder="Upload">
+            <input class="uk-input" id="form-stacked-text" type="string" minlength="2" maxlength="30" name="name" placeholder="Name of scientist or place">
           </div>
         </div>
         <div class="uk-margin">
-        </div>
-      </div>--->
-      <!---<div class=" uk-width-1-2@m">
-        <div class="uk-margin uk-text-left">
-          <div class="uk-form-label">Select Scientist</div>
-          <div class="uk-form-controls ">
-            {{#each candidates }}
-              <label> <input class="uk-radio" type="radio" name="candidate" value="{{lastName}},{{firstName}}">
-                {{lastName}}, {{firstName}}</label> <br>
-            {{/each}}
+        <label class="uk-form-label" for="form-stacked-text">Type</label>
+          <div class="uk-form-controls">
+            <select class="uk-select" id="form-stacked-select" type="string" name="type" placeholder= "Person or Place" readonly="true">
+              <option></option>
+              <option>Person</option>
+              <option>Place</option>
+              <option>Other</option>
+            </select>
           </div>
-        </div>--->
+          </div>
+      <div class=" uk-margin">
+        <div class="uk-form-label">Description</div>
+        <div class="uk-form-controls">
+            <input class="uk-input" id="form-stacked-text" type="string" name="description" placeholder="Description of scientist or place">
+        </div>
+      </div>
+      <div class="uk-margin">
+        <label class="uk-form-label" for="form-stacked-text">Location</label>
+          <div class="uk-form-controls">
+            <select class="uk-select" id="form-stacked-select" type="string" name="location" placeholder= "location" readonly="true">
+              <option></option>
+              <option>Munster</option>
+              <option>Connaught</option>
+              <option>Ulster</option>
+              <option>Leinster</option>
+            </select>
+          </div>
         <div class="uk-margin">
           <button class="submit uk-button uk-button-primary uk-button-large uk-width-1-1">Contribute</button>
         </div>
