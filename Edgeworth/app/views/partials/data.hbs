@@ -1,5 +1,5 @@
 <!-- <div class="uk-margin uk-width-2xlarge uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large"> -->
-<!---  API taking wind readings from Open Weather App --->
+<!---  API taking readings from Open Weather App using ajax --->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
@@ -24,11 +24,64 @@
   });
 </script>
 
-<div class="uk-margin uk-width-2xlarge uk-card uk-card-default uk-card-body uk-box-shadow uk-text-left">
-<legend class="uk-legend uk-text-center"><b>Data Dashboard</b></legend>
-<div uk-tooltip="title: Did you know: Irish scientist John Tyndall discovered that the Earth's atmosphere is kept warm by carbon dioxide and water vapour">Temperature: <span id="temperature"></span> &#176;C </div>
-<div uk-tooltip="title: Did you know: Irishman Admiral Francis Beaufort invented the Beaufort Scale to visually estimated windspeed">Windspeed: <span id="windSpeed"></span> km/h </div>
-<div uk-tooltip="title: Did you know: Ireland's average humidity is 83%">Humidity: <span id="humidity"></span> % </div>
-<div uk-tooltip="title: Did you know: Irish scientist Robert Boyle discovered the inverse relationship between pressure and volume now known as Boyle's Law">Pressure: <span id="pressure"></span> MB </div>
-<img width="350" src="images/ireland-rock.png">
-</div>
+
+
+<script>
+
+  // Moon phase taken via API from Aeris Weather
+  // Dot and bracket notation used to access object within array within object
+  var settings1 = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://api.aerisapi.com/sunmoon/Dublin,ireland?&format=json&client_id=7q9qIxdUgoxF3PLVNvKu1&client_secret=kWoCJmXKK6zJRllu4V7svR3erxz8REztKX9trjaA",
+    "method": "GET"
+  }
+
+  $.ajax(settings1).done(function (response1) {
+    console.log(response1);
+    var content4 = response1.response[0].moon.phase.name;
+    //var capitalise = content4.toUpperCase();
+    var content5 = response1.response[0].sun.riseISO;
+    var justTime = content5.slice(11,16);
+    $("#moonPhase").append(content4);
+    $("#sunset").append(justTime);
+
+
+
+
+
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+<div class="uk-margin uk-card-default uk-card-body uk-box-shadow uk-text-left" uk-sticky>
+  <legend class="uk-legend uk-text-center"><b>Data Dashboard</b></legend>
+  <div
+    uk-tooltip="title: Did you know: Irish scientist John Tyndall discovered that the Earth's atmosphere is kept warm by carbon dioxide and water vapour">
+    Temperature: <span id="temperature"></span> &#176;C </div>
+  <div
+    uk-tooltip="title: Did you know: Irishman Admiral Francis Beaufort invented the Beaufort Scale to visually estimated windspeed">
+    Windspeed: <span id="windSpeed"></span> km/h </div>
+  <div uk-tooltip="title: Did you know: Ireland's average humidity is 83%">Humidity: <span id="humidity"></span> %
+  </div>
+  <div
+    uk-tooltip="title: Did you know: Irish scientist Robert Boyle discovered the inverse relationship between pressure and volume now known as Boyle's Law">
+    Pressure: <span id="pressure"></span> MB </div>
+  <div
+    uk-tooltip="title: Did you know: the Earl of Birr discovered the temperature of the moon in the 1840s, more than 100 years before the Apollo mission landed on its surface">
+    Moon Phase: <span id="moonPhase"></span></div>
+    <div
+    uk-tooltip="title: Did you know: the Irish company Captec designed the software for the measurement instruments onboard the NASA/ESA Solar Orbiter satellite, now on its way to the Sun">
+     Sunrise: <span id="sunset"></span></div>
+  <div>
+    <img width="350" src="images/ireland-rock.png">
+  </div>
+  </div>

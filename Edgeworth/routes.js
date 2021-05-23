@@ -16,14 +16,13 @@ module.exports = [
   { method: "POST", path: "/contribute", config: Contributions.contribute },
   { method: "GET", path: "/contribute", config: Contributions.contribute },
   { method: "GET", path: "/report", config: Contributions.report },
-  { method: 'GET', path: '/delete-contribution/{_id}', config: Contributions.deleteContribution },
-  // { method: "GET", path: "/report/deleteOne/{id}", config: Contributions.deleteContribution },
-  //{ method: 'GET', path: '/contribution/deletecontribution/:id', config: Contributions.deleteContribution },
-  //{ method: "GET", path: "/contribute/{id}", config: Contributions.deleteOne },
-  //{ method: 'GET', path: '/report/deletecontribution/{id}', config: Contributions.deleteContributions },
-  // { method: 'POST', path: '/contribute', config: Contributions.deleteOne },// Added delete contribution route
-  // { method: 'DELETE', path: '/contributions', config: Contributions.deleteAll }
-  // { method: "GET", path: "report/delete/{id}", config: Contributions.report},  
+  { method: 'GET', path: '/delete-contribution/{_id}', config: Contributions.deleteContribution }, // Delete contribution route
+  { method: 'GET', path: '/like-contribution/{_id}', config: Contributions.likeContribution }, // Like contribution route
+  { method: 'GET', path: '/update-contribution/{_id}', config: Contributions.showContribution }, // Render update contribution page route
+  { method: 'POST', path: '/update-contribution/{_id}', config: Contributions.updateContribution }, //Update contribution
+  //{ method: 'GET', path: '/show-contribution/{_id}', config: Contributions.showContribution },
+  //{ method: 'GET', path: '/edit-contribution/{_id}', config: Contributions.showContribution },
+
   {
     method: "GET",
     path: "/{param*}",
